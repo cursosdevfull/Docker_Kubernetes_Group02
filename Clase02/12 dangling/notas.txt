@@ -1,0 +1,8 @@
+Listar imágenes huérfanas
+docker images -f dangling=true
+
+Listar los id de las imágenes huérfanas
+docker images -f dangling=true -q
+
+Eliminar imágenes dangling
+docker images -f dangling=true -q | xargs docker rmi

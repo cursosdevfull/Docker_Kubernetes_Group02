@@ -1,0 +1,1 @@
+docker run -d --name postgres-server -p 5432:5432 -e POSTGRES_PASSWORD=12345 -e POSTGRES_USER=docker-user -e POSTGRES_DB=docker-db postgres:9.6.20-alpine

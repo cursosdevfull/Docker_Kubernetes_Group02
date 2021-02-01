@@ -1,0 +1,8 @@
+Listar contenedores que se están ejecutando
+docker ps
+ 
+docker run -d jenkins:2.60.3-alpine
+
+docker run -d -p 8100:8080 jenkins:2.60.3-alpine
+docker run -d -p 8110:8080 jenkins:2.60.3-alpine
+docker run -d -p 8120:8080 jenkins:2.60.3-alpine

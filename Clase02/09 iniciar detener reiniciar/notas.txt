@@ -1,0 +1,8 @@
+Para detener
+docker stop <nombre contenedor>
+
+Para iniciar
+docker start <nombre contenedor>
+
+Para reiniciar
+docker restart <nombre contenedor>
