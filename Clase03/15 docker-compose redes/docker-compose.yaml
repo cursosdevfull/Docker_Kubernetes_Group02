@@ -1,0 +1,26 @@
+version: "3"
+services:
+  web1:
+    image: nginx
+    container_name: nginx-web1
+    ports:
+      - "8880:80"
+    networks:
+      - net-test
+
+  web2:
+    image: httpd
+    container_name: apache-web2
+    ports:
+      - "8881:80"
+    networks:
+      - net-test
+
+  web3:
+    image: httpd
+    container_name: apache-web3
+    networks:
+      - net-test
+
+networks:
+  net-test:

@@ -1,0 +1,5 @@
+docker volume ls
+docker volume ls -f dangling=true
+
+para borrar volumenes dangling
+docker volume ls -f dangling=true | xargs docker volume rm

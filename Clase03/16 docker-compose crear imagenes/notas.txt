@@ -1,0 +1,2 @@
+Para crear solo las imágenes
+docker-compose build

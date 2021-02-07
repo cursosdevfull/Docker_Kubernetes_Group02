@@ -1,0 +1,2 @@
+docker network create test-network
+docker network create -d bridge --gateway 172.124.10.1 --subnet 172.124.10.0/24 docker-test

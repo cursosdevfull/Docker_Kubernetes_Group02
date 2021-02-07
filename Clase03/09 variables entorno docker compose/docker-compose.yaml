@@ -1,0 +1,12 @@
+version: "3"
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "8088:80"
+    container_name: webserver3
+    env_file: misvariables.env
+    #environment:
+    #  - env_host=${HOST}
+    #  - env_ip=${IP}

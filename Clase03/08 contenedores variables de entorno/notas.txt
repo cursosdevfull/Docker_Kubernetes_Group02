@@ -1,0 +1,6 @@
+docker build -t appvariables .
+
+docker run -d -i -t --name misvariables appvariables
+docker run -dit --name misvariables appvariables
+
+docker exec -it misvariables sh

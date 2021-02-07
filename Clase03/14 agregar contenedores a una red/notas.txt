@@ -1,0 +1,11 @@
+docker run -d --name mongoserver --network docker-test mongo
+docker run -dit --name centos --network docker-test centos:7
+
+docker network create docker-centos
+
+docker run -dit --name centos2 --network docker-centos centos:7
+
+docker network connect docker-test centos2
+
+Para eliminar una red
+docker network rm docker-centos

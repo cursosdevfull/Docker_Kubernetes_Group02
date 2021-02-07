@@ -1,0 +1,13 @@
+version: "3"
+
+services:
+  web:
+    image: nginx
+    ports:
+      - "8090:80"
+    container_name: webserver2
+    volumes:
+      - "mivol:/usr/share/nginx/html"
+
+volumes:
+  mivol:

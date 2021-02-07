@@ -1,0 +1,7 @@
+version: "3"
+services:
+  web:
+    image: web-test2
+    build:
+      context: frontend/
+      dockerfile: mi-dockerfile

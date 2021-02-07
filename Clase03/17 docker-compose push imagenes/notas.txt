@@ -1,0 +1,3 @@
+docker tag web-test:latest sergiohidalgocaceres/web-test:latest
+
+docker push sergiohidalgocaceres/web-test:latest
