@@ -9,7 +9,8 @@ app.get("/api/message", (req, res) => {
     message1: "Mensaje desde el backend1",
   };
 
-  const endpointBackend2 = "http://localhost:3020";
+  const endpointBackend2 =
+    process.env.SERVICE_BACKEND2 || "http://localhost:3020";
   axios.get(endpointBackend2 + "/api/message").then((response) => {
     info.message2 = response.data.message;
 

@@ -4,7 +4,9 @@ const app = express();
 app.use("/", express.static("./public"));
 
 app.get("/api/config", (req, res) => {
-  const info = { backend1: "http://localhost:3010" };
+  const info = {
+    backend1: process.env.SERVICE_BACKEND1 || "http://localhost:3010",
+  };
   res.json(info);
 });
 

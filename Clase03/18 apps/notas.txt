@@ -1,0 +1,5 @@
+Para recrear imágenes desde docker-compose
+
+docker-compose build
+
+docker-compose up -d --build
