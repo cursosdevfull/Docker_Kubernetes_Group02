@@ -1,0 +1,11 @@
+Para crear un repositorio de imágenes
+docker run -d -p 5000:5000 --restart always --name registry registry:2
+
+Para crear las imágenes desde docker-compose. No olvidar cambiar el tag de las imágenes
+docker-compose build
+
+Para subir las imágenes al contenedor registry
+docker-compose push
+
+Para verificar que las imágenes están en registry
+http://localhost:5000/v2/_catalog

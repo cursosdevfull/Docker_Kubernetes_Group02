@@ -1,0 +1,45 @@
+version: "3"
+
+services:
+  frontend:
+    image: localhost:5000/mifrontend
+    build:
+      context: .
+      dockerfile: frontend/Dockerfile
+    ports:
+      - 9000:3000
+    environment:
+      - SERVICE_BACKEND1=http://localhost:9010
+      - PORT=3000
+    depends_on:
+      - backend1
+    networks:
+      - mired
+
+  backend1:
+    image: localhost:5000/mibackend1
+    build:
+      context: .
+      dockerfile: backend1/Dockerfile
+    ports:
+      - 9010:3010
+    environment:
+      - SERVICE_BACKEND2=http://backend2:3020
+      - PORT=3010
+    depends_on:
+      - backend2
+    networks:
+      - mired
+
+  backend2:
+    image: localhost:5000/mibackend2
+    build:
+      context: .
+      dockerfile: backend2/Dockerfile
+    environment:
+      - PORT=3010
+    networks:
+      - mired
+
+networks:
+  mired:

@@ -1,0 +1,67 @@
+--------------
+PROGRAMAS A INSTALAR
+
+- Si trabaja con Windows, instalar Chocolatey
+- aws-cli (https://awscli.amazonaws.com/AWSCLIV2.msi)
+- eksctl (choco install -y eksctl)
+- helm (choco install kubernetes-helm)
+
+--------------------
+CONFIGURAR CUENTA DE AWS
+aws configure
+
+--------------------
+CREAR CLUSTER
+eksctl create cluster --name prueba-cluster --without-nodegroup --region us-east-2 --zones us-east-2a,us-east-2b
+
+CREAR NODOS
+eksctl create nodegroup --cluster prueba-cluster --name prueba-workers --version auto --node-type t3.medium --nodes 2 --nodes-min 2 --nodes-max 3 --asg-access
+
+PARA ESCALAR
+eksctl scale nodegroup --cluster=prueba-cluster --nodes=0 --nodes-max=0 --nodes-min=0 prueba-workers
+
+--------------------
+VINCULAR DOCKER CON AWS
+docker login -u AWS -p $(aws ecr get-login-password --region us-east-2) 282865065290.dkr.ecr.us-east-2.amazonaws.com
+
+------------------------
+CREAR EL BALANCEADOR
+https://docs.aws.amazon.com/eks/latest/userguide/aws-load-balancer-controller.html
+
+CREAR UN PROVEEDOR
+eksctl utils associate-iam-oidc-provider --cluster prueba-cluster --approve
+
+DESCARGAR LA POLÍTICA
+curl -o iam_policy.json https://raw.githubusercontent.com/kubernetes-sigs/aws-load-balancer-controller/v2.1.2/docs/install/iam_policy.json
+
+APLICAR LA POLÍTICA
+aws iam create-policy \
+    --policy-name AWSLoadBalancerControllerIAMPolicy \
+    --policy-document file://iam_policy.json
+
+CREAR CUENTA DE SERVICIO
+ eksctl create iamserviceaccount \
+  --cluster=prueba-cluster \
+  --namespace=kube-system \
+  --name=aws-load-balancer-controller \
+  --attach-policy-arn=arn:aws:iam::282865065290:policy/AWSLoadBalancerControllerIAMPolicy \
+  --override-existing-serviceaccounts \
+  --approve
+
+VERIFICAR SI EXISTE EL CONTROLADOR PARA EL BALANCEADOR
+kubectl get deployment -n kube-system alb-ingress-controller
+
+CREAR EL TARGET GROUP
+kubectl apply -k "github.com/aws/eks-charts/stable/aws-load-balancer-controller//crds?ref=master"
+
+helm repo add eks https://aws.github.io/eks-charts
+
+UPGRADE AL CONTROLADOR
+helm upgrade -i aws-load-balancer-controller eks/aws-load-balancer-controller \
+  --set clusterName=prueba-cluster \
+  --set serviceAccount.create=false \
+  --set serviceAccount.name=aws-load-balancer-controller \
+  -n kube-system
+
+VERIFICAR QUE SE CREÓ EL CONTROLADOR
+kubectl get deployment -n kube-system aws-load-balancer-controller
