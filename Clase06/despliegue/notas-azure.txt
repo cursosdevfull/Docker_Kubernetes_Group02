@@ -1,0 +1,29 @@
+1. Crear una cuenta en portal.azure.com
+2. Crear un resourceGroup
+3. Agregar un Container Registry
+4. Descargar Azure CLI: https://docs.microsoft.com/en-us/cli/azure/install-azure-cli-windows?tabs=azure-cli
+5. Loguearse: az login
+6. Vincular con Docker con Container Registry
+   az acr login --name <nombre del container registry>
+   az acr login --name cursok8simages
+7. Taguear las imágenes en docker-compose
+   [dominio del container registry]/[nombre de imagen]
+8. Generar las imágenes desde docker-compose
+   docker-compose build
+9. Subir las imágenes al registro de imágenes de Azure a través de docker-compose 
+   docker-compose push
+10. Confirmar que las imágenes subieron
+   az acr repository list --name <nombre del container registry>
+   az acr repository list --name cursok8simages
+11. Desplegar los deploy y los services. No olvidar cambiar las rutas de las imágenes
+12. Instalar el Chocolatey: https://Chocolatey.org
+13. Instalar el Helm.
+    choco install kubernetes-helm
+14. Instalar el ingress-nginx
+      helm repo add ingress-nginx https://kubernetes.github.io/ingress-nginx
+15. Instalar el nginx-controller
+helm install nginx-ingress ingress-nginx/ingress-nginx \
+    --set controller.replicaCount=2 \
+    --set controller.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set defaultBackend.nodeSelector."beta\.kubernetes\.io/os"=linux \
+    --set controller.admissionWebhooks.patch.nodeSelector."beta\.kubernetes\.io/os"=linux

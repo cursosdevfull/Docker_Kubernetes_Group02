@@ -10,6 +10,8 @@ app.get("/api/config", (req, res) => {
   res.json(info);
 });
 
+app.get("/api/healthz", (req, res) => res.status(200).send("I am alive"));
+
 app.use("**", (req, res) => {
   res.sendFile(__dirname + "/public/index.html");
 });

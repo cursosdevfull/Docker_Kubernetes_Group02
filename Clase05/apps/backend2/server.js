@@ -11,4 +11,6 @@ app.get("/api/message", (req, res) => {
   res.json(info);
 });
 
+app.get("/api/healthz", (req, res) => res.status(200).send("I am alive"));
+
 app.listen(3020, () => console.log("Backend2 en el puerto 3020"));

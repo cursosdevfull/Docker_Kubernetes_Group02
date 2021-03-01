@@ -2,7 +2,7 @@ version: "3"
 
 services:
   frontend:
-    image: 165.227.190.61:5000/mifrontend
+    image: gcr.io/cursok8s-306121/mifrontend
     build:
       context: .
       dockerfile: frontend/Dockerfile
@@ -17,7 +17,7 @@ services:
       - mired
 
   backend1:
-    image: 165.227.190.61:5000/mibackend1
+    image: gcr.io/cursok8s-306121/mibackend1
     build:
       context: .
       dockerfile: backend1/Dockerfile
@@ -32,7 +32,7 @@ services:
       - mired
 
   backend2:
-    image: 165.227.190.61:5000/mibackend2
+    image: gcr.io/cursok8s-306121/mibackend2
     build:
       context: .
       dockerfile: backend2/Dockerfile
